@@ -171,7 +171,8 @@ module.exports = {
                 console.log("my carts", promotionalFoods);
                 res.status(200).json(promotionalFoods);
             } else {
-                res.status(404).json({ status: false, message: 'No promotional foods found' });
+                res.status(200).json(promotionalFoods);
+                //res.status(404).json({ status: false, message: 'No promotional foods found' });
             }
         } catch (error) {
             res.status(500).json(error);
