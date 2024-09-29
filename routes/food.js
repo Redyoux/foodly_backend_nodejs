@@ -5,7 +5,7 @@ const {verifyTokenAndAuthorization, verifyVendor}= require("../middlewares/verif
 
 // UPADATE category
 router.get('/restaurant-foods/:id', foodController.getFoodList)
-
+router.get('/promotional-foods', foodController.getAllPromotionalFoods)
 router.post("/", verifyVendor , foodController.addFood);
 
 router.post("/tags/:id", foodController.addFoodTag);

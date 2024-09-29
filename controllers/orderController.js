@@ -14,6 +14,16 @@ const sendNotificationToTopic = require("../utils/send_to_topic");
 
 module.exports = {
   placeOrder: async (req, res) => {
+
+    let promotionPrice=0.0;
+    let grandTotal=0.0;
+    if(req.body.promotion==true){
+      promotionPrice=req.body.promotionPrice;
+
+    }else{
+      req.body.promotion=false;
+    }
+
     const order = new Order({
       userId: req.body.userId,
       orderItems: req.body.orderItems,
@@ -27,6 +37,8 @@ module.exports = {
       restaurantCoords: req.body.restaurantCoords,
       recipientCoords: req.body.recipientCoords,
       deliveryAddress: req.body.deliveryAddress,
+      promotion:req.body.promotion,
+      promotionPrice:promotionPrice
     });
 
     try {

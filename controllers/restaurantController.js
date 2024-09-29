@@ -489,6 +489,7 @@ module.exports ={
             foodItem.imageUrl = imageUrl;
             foodItem.promotion = promotion;
             foodItem.promotionPrice = promotionPrice;
+            foodItem.verified=false;
     
             // Save the updated food item
             await foodItem.save();

@@ -22,6 +22,8 @@ const foodSchema = new mongoose.Schema({
     imageUrl: { type: Array, required: true },
     promotion: { type: Boolean, required: false },
     promotionPrice: { type: Number, required: true, default: 0.0 },
+    verified:{type:Boolean, default: false,},
+    
 }, {
     timestamps: true  // Automatically adds createdAt and updatedAt
 });

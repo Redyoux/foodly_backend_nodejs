@@ -23,7 +23,9 @@ module.exports = {
                     additives: req.body.additives,
                     instructions: req.body.instructions,
                     totalPrice: req.body.totalPrice,
-                    quantity: req.body.quantity
+                    quantity: req.body.quantity,
+                    promotion:req.body.promotion,
+                    promotionPrice:req.body.promotionPrice,
                 });
                 await newCartEntry.save();
                  count = await Cart.countDocuments({ userId });
@@ -93,7 +95,7 @@ module.exports = {
                 };
             });
     
-            console.log(updatedCart);
+            console.log("my cart ",updatedCart);
             res.status(200).json(updatedCart);
         } catch (error) {
             res.status(500).json({ status: false, message: error.message });

@@ -7,6 +7,8 @@ const cartSchema = new mongoose.Schema({
     instructions: {type: String, default: ''},
     totalPrice: {type: Number , required: true},
     quantity: {type: Number , required: true},
+    promotion:{type:Boolean, default: false},
+    promotionPrice:{type:Number, default:0.0},
 });
 
 module.exports = mongoose.model('Cart', cartSchema);

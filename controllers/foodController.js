@@ -160,6 +160,23 @@ module.exports = {
             res.status(500).json(error);
         }
     },
+    
+    getAllPromotionalFoods: async (req, res) => {
+        try {
+            // Get all foods where promotion is true
+            const promotionalFoods = await Food.find({ promotion: true, verified:true }).select('-__v');
+            
+            // Respond with the results
+            if (promotionalFoods.length) {
+                console.log("my carts", promotionalFoods);
+                res.status(200).json(promotionalFoods);
+            } else {
+                res.status(404).json({ status: false, message: 'No promotional foods found' });
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },    
 
 
     getRandomFoodsByCode: async (req, res) => {

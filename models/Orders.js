@@ -7,6 +7,9 @@ const orderItemSchema = new mongoose.Schema({
     unitPrice:{type:Number, default: 0},
     additives: { type: Array },
     instructions: {type: String, default: ''},
+    promotion:{type:Boolean, default: false},
+    promotionPrice:{type:Number, default:0.0}
+    
 });
 
 const orderSchema = new mongoose.Schema({
@@ -38,7 +41,7 @@ const orderSchema = new mongoose.Schema({
     
     revenueCalculated: { type: Boolean, default: false }, 
     //this is calculated during payout
-    paidOut:{type:Boolean, default: false}
+    paidOut:{type:Boolean, default: false},
 }, {timestamps: true});
 
 module.exports = mongoose.model('Order', orderSchema);
