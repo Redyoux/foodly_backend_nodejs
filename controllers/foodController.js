@@ -168,7 +168,6 @@ module.exports = {
             
             // Respond with the results
             if (promotionalFoods.length) {
-                console.log("my carts", promotionalFoods);
                 res.status(200).json(promotionalFoods);
             } else {
                 res.status(200).json(promotionalFoods);

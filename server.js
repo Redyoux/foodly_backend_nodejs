@@ -17,8 +17,8 @@ const driverRoute = require("./routes/driver");
 const messagingRoute = require("./routes/messaging");
 const orderRoute = require("./routes/order");
 const ratingRoute = require("./routes/rating");
-const uploadRoute =require("./routes/uploads")
-
+const uploadRoute =require("./routes/uploads");
+const loyaltyPoints = require("./routes/loyaltypoint");
 
 
 
@@ -29,6 +29,7 @@ fireBaseConnection();
 
 
 const mongoose = require('mongoose');
+const LoyaltyPoints = require('./models/LoyaltyPoints');
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("connected to the db")).catch((err) => { console.log(err) });
 
@@ -62,6 +63,7 @@ app.use("/api/orders", orderRoute);
 app.use("/api/rating", ratingRoute);
 app.use("/api/messaging", messagingRoute);
 app.use("/api/uploads", uploadRoute);
+app.use("/api/points", loyaltyPoints);
 
 
 const ip =  "localhost";
