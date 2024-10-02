@@ -29,7 +29,6 @@ module.exports = {
                 });
                 await newCartEntry.save();
                  count = await Cart.countDocuments({ userId });
-                 console.log("my count ", count);
             }
 
             res.status(201).json({ status: true, count: count });

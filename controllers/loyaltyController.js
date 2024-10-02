@@ -50,4 +50,41 @@ module.exports = {
             res.status(500).json({ error: 'Failed to save points transaction' });
         }
     },
+    
+    getPoints: async (req, res) => {
+        console.log(req.params);  // Check if this logs the userId correctly
+
+        const { userId } = req.params;
+        console.log("User id ",userId);
+    
+        try {
+            console.log(`[INFO] Fetching points transactions for UserId: ${userId}`);
+    
+            // Find all points transactions for the specified user
+            const pointsTransactions = await Points.find({ userId });
+    
+            if (!pointsTransactions || pointsTransactions.length === 0) {
+                console.log(`[INFO] No points transactions found for UserId: ${userId}`);
+                return res.status(404).json({ message: 'No points transactions found for this user' });
+            }
+    
+            // Transform the response to match the front-end model
+            const transformedTransactions = pointsTransactions.map(transaction => ({
+                userId: transaction.userId,  // Ensure this is a string if needed
+                points: transaction.points,  // Or another field representing "points"
+                orderId: transaction._id.toString(),  // Assuming this is the order ID
+                reason: transaction.confirmation ? 'earn' : 'redeem'  // Example logic for reason
+            }));
+    
+            console.log(`[SUCCESS] Points transactions fetched successfully for UserId: ${userId}`);
+            res.status(200).json({
+                message: 'Points transactions retrieved successfully',
+                data: transformedTransactions  // Return transformed data
+            });
+        } catch (error) {
+            console.error(`[ERROR] Failed to retrieve points transactions for UserId: ${userId}. Error: ${error.message}`);
+            res.status(500).json({ error: 'Failed to retrieve points transactions' });
+        }
+    }
+    
 };
