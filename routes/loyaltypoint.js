@@ -6,5 +6,6 @@ const {verifyTokenAndAuthorization, verifyAdmin}= require("../middlewares/verify
 
 router.post('/points', loyaltyController.addPoints);
 router.get('/:userId', loyaltyController.getPoints);
+router.get('/totalPoints/:userId', loyaltyController.getTotalPoints);
 
 module.exports = router;

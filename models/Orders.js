@@ -42,6 +42,7 @@ const orderSchema = new mongoose.Schema({
     revenueCalculated: { type: Boolean, default: false }, 
     //this is calculated during payout
     paidOut:{type:Boolean, default: false},
+    redeemed:{type:Boolean, default: false},
 }, {timestamps: true});
 
 module.exports = mongoose.model('Order', orderSchema);

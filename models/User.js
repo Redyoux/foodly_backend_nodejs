@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema(
             require: true,
             default: "https://dbestech-code.oss-ap-southeast-1.aliyuncs.com/foodly_flutter/icons/profile-photo.png?OSSAccessKeyId=LTAI5t8cUzUwGV1jf4n5JVfD&Expires=36001721319904&Signature=mxqrJ0bGFdbh05ORP7QHQsI3Ty0%3D"
         },
+        totalPoints:{type:Number, required:true, default:0.0},
 
     }, { timestamps: true }
 );
