@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');  // <-- Import CORS
+const cron = require('node-cron'); // Import node-cron
 
 const compression = require('compression');
 const { fireBaseConnection } = require('./utils/fbConnect');
@@ -74,3 +75,22 @@ app.listen(port, ip, () => {
   console.log(`Product server listening on ${ip}:${port}`);
 });
 
+const Cart = require('./models/Cart'); // Import your Cart model
+
+
+const removePendingCart = async () => {
+  const cutoffDate = new Date(Date.now() - 24 * 60 * 60 * 1000); // 24 hours ago
+
+  try {
+      const result = await Cart.deleteMany({ createdAt: { $lte: cutoffDate } });
+      console.log(`Removed ${result.deletedCount} pending items from cart.`);
+  } catch (error) {
+      console.error('Error removing pending cart items:', error);
+  }
+};
+
+// Schedule the cron job to run every 24 hours
+cron.schedule('0 0 * * *', () => {
+  console.log('Running scheduled task to remove pending cart items...');
+  removePendingCart();
+});
