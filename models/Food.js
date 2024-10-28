@@ -23,6 +23,8 @@ const foodSchema = new mongoose.Schema({
     promotion: { type: Boolean, required: false },
     promotionPrice: { type: Number, required: true, default: 0.0 },
     verified:{type:Boolean, default: false,},
+    promoStarts: { type: Date, default: null },
+    promoEnds: { type: Date, default: null },
     
 }, {
     timestamps: true  // Automatically adds createdAt and updatedAt

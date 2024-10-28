@@ -171,9 +171,7 @@ module.exports ={
             if (!restaurant) {
                 return res.status(404).json({ status: false, message: 'restaurant item not found' });
             }
-
             
-
             res.status(200).json(restaurant);
         } catch (error) {
             res.status(500).json(error);
@@ -250,10 +248,6 @@ module.exports ={
           orders.forEach(order => {
             grossRevenue += order.orderTotal;  // Ignoring the delivery fee
           });
-    
-
-      
-    
 
             if(latestPayout.length!=0){
                 let revenueTotal = latestPayout[0].unpaidAmount;
@@ -433,6 +427,8 @@ module.exports ={
     },
 
     editFood: async (req, res) => {
+        console.log("items are ",req.body);
+        
         const requiredFields = {
             title: req.body.title,
             foodTags: req.body.foodTags,
@@ -459,10 +455,13 @@ module.exports ={
             });
         }
 
-        let { title, foodTags, category, foodType, code, isAvailable, restaurant, description, time, price, additives, imageUrl, promotion, promotionPrice } = req.body;
+        let { title, foodTags, category, foodType, code, isAvailable, restaurant, description, time, price, additives, imageUrl, promotion, promotionPrice, promoStarts, promoEnds } = req.body;
         
-        console.log(" items ", title, foodTags, category, foodType, code, isAvailable, restaurant, description, time, price, additives, imageUrl, promotion, promotionPrice );
-        //return;
+       // console.log(" items ", title, foodTags, category, foodType, code, isAvailable, restaurant, description, time, price, additives, imageUrl, promotion, promotionPrice, promoStarts, promoEnds);
+        promoStarts = req.body.promStarts ? new Date(req.body.promStarts) : null;
+        promoEnds = req.body.promEnds ? new Date(req.body.promEnds) : null;
+       console.log("Converted promoStarts:", promoStarts, "Converted promoEnds:", promoEnds);
+       
         try {
             // Find the food item by its ID
             const foodItem = await Foods.findById(req.params.id);
@@ -490,6 +489,8 @@ module.exports ={
             foodItem.promotion = promotion;
             foodItem.promotionPrice = promotionPrice;
             foodItem.verified=false;
+            foodItem.promoStarts = promoStarts;
+            foodItem.promoEnds = promoEnds;
     
             // Save the updated food item
             await foodItem.save();

@@ -163,17 +163,26 @@ module.exports = {
     
     getAllPromotionalFoods: async (req, res) => {
         try {
+            const currentDate = new Date();
+            // Get all foods where promotion is true, verified is true, and within the promotion date range
+            const promotionalFoods = await Food.find({ 
+                promotion: true, 
+                verified: true,
+                promoStarts: { $lte: currentDate },
+                promoEnds: { $gte: currentDate }
+            }).select('-__v');
             // Get all foods where promotion is true
-            const promotionalFoods = await Food.find({ promotion: true, verified:true }).select('-__v');
-            
+
             // Respond with the results
             if (promotionalFoods.length) {
                 res.status(200).json(promotionalFoods);
             } else {
+
                 res.status(200).json(promotionalFoods);
                 //res.status(404).json({ status: false, message: 'No promotional foods found' });
             }
         } catch (error) {
+
             res.status(500).json(error);
         }
     },    
